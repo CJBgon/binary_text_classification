@@ -23,3 +23,4 @@ clf = linear_model.RidgeClassifier()
 
 scores = model_selection.cross_val_score(clf, count_train_vec, train_df["target"], cv=3, scoring="f1")
 scores
+# model did okay, lets run it with Tfidf
