@@ -23,4 +23,19 @@ clf = linear_model.RidgeClassifier()
 
 scores = model_selection.cross_val_score(clf, count_train_vec, train_df["target"], cv=3, scoring="f1")
 scores
+
 # model did okay, lets run it with Tfidf
+term_freq = feature_extraction.text.TfidfVectorizer()
+freq_train_vec = term_freq.fit_transform(train_df["text"])
+freq_test_vec = term_freq.transform(test_df["text"])
+scores = model_selection.cross_val_score(clf, freq_train_vec, train_df["target"], cv=3, scoring="f1")
+
+# can we combine both features?
+
+# how about using a different learning algorithm?
+# XGBoost it?
+
+# this score is on the training set, how does it perform on the testing set?
+
+
+print(freq_train_vec[0])
