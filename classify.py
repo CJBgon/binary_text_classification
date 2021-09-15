@@ -31,7 +31,7 @@ freq_test_vec = term_freq.transform(test_df["text"])
 scores = model_selection.cross_val_score(clf, freq_train_vec, train_df["target"], cv=3, scoring="f1")
 
 # can we combine both features?
-
+dt = pd.DataFrame({'target':[train_df["target"]], 'Tfid':[freq_train_vec], 'count':[count_train_vec]})
 # how about using a different learning algorithm?
 # XGBoost it?
 
