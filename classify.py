@@ -1,3 +1,4 @@
+from operator import index
 import pandas as pd
 import numpy as np
 import xgboost as xgb
@@ -17,7 +18,6 @@ train_df[train_df["target"] == 1]["text"].values[1]
 # feature extraction:
 
 # number of words or common words in distaster tweets
-
 count_vec = feature_extraction.text.CountVectorizer()
 
 
@@ -83,7 +83,6 @@ scores = model_selection.cross_val_score(clf,
 # what if we provide all features to an XGBclassifier
 
 # features:
-
 hashmat_train
 count_train_vec
 freq_train_vec
@@ -144,18 +143,11 @@ print(confusion_matrix(y_test, y_test_hat))
 
 Xtest = scipy.sparse.hstack([count_test_vec, freq_test_vec, hashmat_test]).tocsr()
 y_fin = random_search.predict(Xtest)
-df_out = DataFrame({'id':[test_df['id']],'target':[y_fin]})
+df_out = pd.DataFrame({'id':test_df['id'],'target':pd.Series(y_fin)})
+
 
 df_out.to_csv('/Users/christianbouwens/Documents/sideprojects/NLP_kaggle/test_out.csv',
     sep=',',
-    columns = ['id','target'])
-
-
-# def processing(dat):
-#     count_vec = feature_extraction.text.CountVectorizer()
-#     term_freq = feature_extraction.text.TfidfVectorizer()
-#     hashmat = feature_extraction.text.HashingVectorizer()
-    
-
-#     freq_train_vec = term_freq.fit_transform(train_df["text"])
+    columns = ['id','target'],
+    index = False)
 
